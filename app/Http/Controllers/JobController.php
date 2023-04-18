@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 
 class JobController extends Controller
 {
-    
+    //show all jobs
     public function index(){
         
         return view('jobs.jobs',[
@@ -17,18 +18,20 @@ class JobController extends Controller
         ]);
     }
 
-    
+    //Show single job
     public function show(Job $job){
         return view('jobs.job',[
             'job'=> $job
         ]);
     }
 
+    //Show create form
     public function create(){
 
         return view('jobs.create');
     }
 
+    //Save create form
     public function store(Request $request){
 
         $formContents = $request->validate([
@@ -50,6 +53,37 @@ class JobController extends Controller
 
         return redirect('/')->with('message', 'New job posted successfully!');
 
+    }
+
+    //show edit form
+    public function edit(Job $job){
+        return view('jobs.edit', ['job' => $job]);
+    }
+
+
+    //save update
+    public function update(Request $request, Job $job){
+        $formContents = $request->validate([
+            'title' => 'required',
+            'company' => 'required',
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required'
+            
+        ]);
+
+        if ($request->hasFile('logo')){
+            $formContents['logo'] = $request->file('logo')->store('logos', 'public');
+            if(File::exists('/storage/'.$job->logo)) {
+                File::delete('/storage/'.$job->logo);
+            }
+        }
+
+        $job->update($formContents);
+
+        return redirect('/')->with('message', 'Job updated successfully!');
     }
 
 }
