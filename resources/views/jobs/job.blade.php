@@ -33,26 +33,31 @@
                                     href="mailto:{{$job->email}}"
                                     class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"
                                     ><i class="fa-solid fa-envelope"></i>
-                                    Contact Employer</a
-                                >
+                                    Contact Employer</a>
 
-                                <a
-                                    href="{{$job->website}}"
+                                <a  href="{{$job->website}}"
                                     target="_blank"
                                     class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
                                     ><i class="fa-solid fa-globe"></i> Visit
-                                    Website</a
-                                >
+                                    Website</a>
+
+                                <a
+                                    href="/jobs/{{$job->id}}/edit"
+                                    class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
+                                    ><i class="fa-solid fa-pencil"></i> Edit Job Post</a>
+
+                                <form method ="POST" action="/jobs/{{$job->id}}">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete Job</buto
+                                </form>
+
+                                
                             </div>
                         </div>
                     </div>
                 </x-card>
-
-                <x-card class="mt-4 p-2 flex space-x-6">
-                    <a href="/jobs/{{$job->id}}/edit">
-                        <i class="fa-solid fa-pencil"></i> Edit
-                    <a>
-                </x-card>
+                
             </div>
 @endif
 

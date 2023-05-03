@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\UserController;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,25 @@ Route::post('/job', [JobController::class,'store']);
 //Show edit form
 Route::get('/jobs/{job}/edit', [JobController::class,'edit']);
 //Update job
-Route::put('jobs/{job}', [JobController::class, 'update']);
+Route::put('/jobs/{job}', [JobController::class, 'update']);
+//Delete
+Route::delete('/jobs/{jog}', [JobController::class, 'destroy']);
+
+//Show User registration form
+Route::get('/register', [UserController::class, 'create']);
+
+//Save new user
+Route::post('/users',  [UserController::class, 'store']);
+
+//Logout
+
+Route::post('/logout', [UserController::class, 'logout']);
+
+
+
+
+
+
 
 
 /*
