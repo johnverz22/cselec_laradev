@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //\App\Models\User::factory(5)->create();
+        $user= \App\Models\User::factory()->create([
+            'name' =>' John Doe',
+            'email'=>'john@gmail.com'
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -35,7 +38,9 @@ class DatabaseSeeder extends Seeder
                 cloud computing and mobile application development'
               ]
         );*/
-        Job::factory(100)->create();
+        Job::factory(10)->create([
+            'user_id'=>$user->id
+        ]);
 
         //table - (plural) jobs, listings, persons
         //model - (singular) job, listing, person

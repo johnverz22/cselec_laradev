@@ -41,7 +41,7 @@
                     </span>
                 </li>
                 <li>
-                    <a href="" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Listing</a>
+                    <a href="/jobs/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Job Posts</a>
                 </li>
                 <li>
                     <form class="inline" method="POST" action="/logout">
@@ -61,7 +61,7 @@
                 </li>
                 <li>
                     
-                    <a href="/logout" class="hover:text-laravel"
+                    <a href="/login" class="hover:text-laravel"
                         ><i class="fa-solid fa-arrow-right-to-bracket"></i>
                         Login</a
                     >

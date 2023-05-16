@@ -49,6 +49,8 @@ class JobController extends Controller
             $formContents['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+        $formContents['user_id'] = auth()->id();
+
         Job::create($formContents);
 
         return redirect('/')->with('message', 'New job posted successfully!');
@@ -57,12 +59,20 @@ class JobController extends Controller
 
     //show edit form
     public function edit(Job $job){
+        if($job->user_id != auth()->id()){
+            abort(403, "Unauthorized action");
+        }
         return view('jobs.edit', ['job' => $job]);
     }
 
 
     //save update
     public function update(Request $request, Job $job){
+
+        if($job->user_id != auth()->id()){
+            abort(403, "Unauthorized action");
+        }
+
         $formContents = $request->validate([
             'title' => 'required',
             'company' => 'required',
@@ -87,10 +97,16 @@ class JobController extends Controller
     }
 
     public function destroy(Job $job){
+        if($job->user_id != auth()->id()){
+            abort(403, "Unauthorized action");
+        }
+
         $job->delete();
 
         return redirect('/')->with('message', 'Job deleted successfully.');
     }
 
-
+    public function manage(){
+        return view('jobs.manage', ['jobs'=>auth()->user()->jobs()->get()]);
+    }
 }
